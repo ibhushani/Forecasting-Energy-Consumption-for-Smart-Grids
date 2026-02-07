@@ -47,11 +47,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Path Setup (Kaggle or Local)
-MODELS_DIR = "/kaggle/working/"
-if not os.path.exists(MODELS_DIR):
-    # Fallback for local testing if user downloads files
-    MODELS_DIR = "."  
+# Path Setup - Use script's directory
+MODELS_DIR = os.path.dirname(os.path.abspath(__file__))  
 
 # ==========================================
 # MODEL LOADER
