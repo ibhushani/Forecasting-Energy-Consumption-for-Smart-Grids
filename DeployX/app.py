@@ -48,7 +48,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Path Setup - Use script's directory
-MODELS_DIR = os.path.dirname(os.path.abspath(__file__))  
+MODELS_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ==========================================
 # MODEL LOADER
@@ -63,13 +63,21 @@ def load_models():
         "Linear Regression": "linear_model.pkl"
     }
 
+    st.sidebar.write(f"📁 Models dir: {MODELS_DIR}")
+    
     for name, filename in model_files.items():
         path = os.path.join(MODELS_DIR, filename)
-        if os.path.exists(path):
-            with open(path, 'rb') as f:
-                models[name] = pickle.load(f)
+        exists = os.path.exists(path)
+        st.sidebar.write(f"{'✅' if exists else '❌'} {filename}")
+        
+        if exists:
+            try:
+                with open(path, 'rb') as f:
+                    models[name] = pickle.load(f)
+            except Exception as e:
+                st.sidebar.error(f"Error loading {filename}: {e}")
+                models[name] = None
         else:
-            # Fallback for demo if file missing (so app doesn't crash)
             models[name] = None
     return models
 
