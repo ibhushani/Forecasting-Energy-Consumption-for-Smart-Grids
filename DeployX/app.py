@@ -5,7 +5,6 @@ import numpy as np
 import pickle
 import json
 import os
-import tensorflow as tf
 from datetime import datetime
 
 # ==========================================
